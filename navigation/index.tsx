@@ -8,9 +8,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
-import MainWorkoutScreen from './../screens/MainWorkoutScreen';
-import SettingsScreen from './../screens/SettingsScreen';
-import CalendarScreen from './../screens/CalendarScreen';
+import NewWorkoutScreen from '../screens/NewWorkoutScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import CalendarScreen from '../screens/CalendarScreen';
+import MainWorkoutScreen from '../screens/MainWorkoutScreen';
+import StartedWorkoutScreen from '../screens/StartedWorkoutScreen';
+
 
 
 const MainStack = createStackNavigator();
@@ -56,7 +59,7 @@ function SettingsStackScreen() {
     );
 }
 
-function MainStackScreen() {
+function WorkoutStackScreen() {
     return (
         <MainStack.Navigator
             screenOptions={{
@@ -64,7 +67,9 @@ function MainStackScreen() {
                 headerStyle: { backgroundColor: '#B9BAA3' },
             }}
         >
-            <MainStack.Screen name="Main" component={MainWorkoutScreen} />
+            <MainStack.Screen name="New Workout" component={NewWorkoutScreen} />
+            <MainStack.Screen name="Main Workout" component={MainWorkoutScreen} />
+            <MainStack.Screen name="Started Workout" component={StartedWorkoutScreen} />
             <MainStack.Screen name="Details" component={DetailsScreen} />
 
         </MainStack.Navigator>
@@ -79,7 +84,7 @@ export default function Navigation() {
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;
 
-                        if (route.name === 'Main') {
+                        if (route.name === 'New Workout') {
                             iconName = focused
                                 ? 'ios-add-circle'
                                 : 'ios-add-circle-outline';
@@ -102,7 +107,7 @@ export default function Navigation() {
                 }}
             >
                 <Tab.Screen name="Calendar" component={CalendarStackScreen} />
-                <Tab.Screen name="Main" component={MainStackScreen}  options={{ title: 'Start New Workout' }} />
+                <Tab.Screen name="New Workout" component={WorkoutStackScreen}  options={{ title: 'Start New Workout' }} />
                 <Tab.Screen name="Settings" component={SettingsStackScreen} />
             </Tab.Navigator>
         </NavigationContainer>
