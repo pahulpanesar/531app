@@ -1,24 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
+import WorkouCard from './WorkoutCard';
 
 
 export default function WorkoutCards(props) {
     return (
-      <View style={{flex: 1, backgroundColor: '#999', }}>
-        <Text>Workout Name: {props.workoutName}</Text>
-        <View style={{flex: 1}}>
-            <Text>Exercise 1</Text>
-        </View>
-
-        <View style={styles.mainCard}>
-            <Text>Exercise 2</Text>
-        </View>
-
-        <View style={{flex: 1, backgroundColor: '#777'}}>
-            <Text>Exercise 3</Text>
-        </View>
+      <View>
+        <WorkouCard name={getWorkoutFromName(props.workoutName)} isMainExercise={true} />
+        <WorkouCard name="Dips" />
       </View>
     );
+  }
+
+  function getWorkoutFromName(name) {
+    if (name == "bench") {
+      return "Bench Press"
+    }
   }
 
   const styles = StyleSheet.create({
@@ -26,7 +23,8 @@ export default function WorkoutCards(props) {
       flex: 1,
       backgroundColor: '#D6D5C9',
       alignItems: 'center',
-      justifyContent: "space-around"
+      justifyContent: "space-around",
+      "width": 450,
     },
     welcomeText: {
       "fontStyle": "normal",

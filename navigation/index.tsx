@@ -80,6 +80,7 @@ export default function Navigation() {
     return (
         <NavigationContainer>
             <Tab.Navigator
+                initialRouteName="New Workout"
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;

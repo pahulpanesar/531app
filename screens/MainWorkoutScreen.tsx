@@ -26,6 +26,7 @@ export default function MainWorkoutScreen({ navigation }) {
       backgroundColor: '#D6D5C9',
       alignItems: 'center',
       justifyContent: "space-around"
+
     },
     welcomeText: {
       "fontStyle": "normal",
