@@ -8,6 +8,7 @@ export default function WorkoutCards(props) {
       <View>
         <WorkouCard name={getWorkoutFromName(props.workoutName)} isMainExercise={true} />
         <WorkouCard name="Dips" />
+        <WorkouCard name="Incline Press" />
       </View>
     );
   }
