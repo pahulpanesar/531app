@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, AsyncStorage } from 'react-native';
 
 var width = Dimensions.get('window').width;
 
 export default function NewWorkoutScreen({ navigation }) {
+  _retrieveData();
   return (
     
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>Welcome, Pahul</Text>
+      <Text style={styles.welcomeText}>Welcome, P</Text>
 
       <TouchableOpacity style={styles.mainCard} onPress={() => navigation.navigate('Main Workout')}>
         <Text style={styles.cardText}>
@@ -29,6 +30,19 @@ export default function NewWorkoutScreen({ navigation }) {
   );
 }
 
+const _retrieveData = async () => {
+  try {
+    const value = await AsyncStorage.removeItem('@531-graphql:auth0', () => {});
+    if (value !== null) {
+      // // We have data!!
+      // console.log(`VALUEEE ${value}!!!.`);
+      // console.log(`NAME: ${JSON.parse(value).name}!!`);
+      // return JSON.stringify(value);
+    }
+  } catch (error) {
+    // Error retrieving data
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
