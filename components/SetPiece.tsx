@@ -34,7 +34,7 @@ function renderPiece(props) {
                  }
                  setChecked(!checked);
             }}>
-                <Ionicons name="ios-checkmark" size="24" />
+                <Ionicons name="ios-checkmark" size={24} />
             </TouchableOpacity>
             );
         default:

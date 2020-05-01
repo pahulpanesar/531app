@@ -1,5 +1,6 @@
 import React from 'react';
-import Navigation from './navigation';
+import AuthNavigation from "./navigation";
+import MainNavigation from "./navigation/MainNavigation";
 import Auth from './src/auth/Auth';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
@@ -49,9 +50,12 @@ export default class App extends React.Component {
       return <View><Text>Loading...</Text></View>
     }
     if (isLoggedIn) {
-      return (<Navigation />)
+      return (<AuthNavigation />)
     } else {
-      return (<Auth login={this.login} />)
+      return (
+        <AuthNavigation />
+        // <Auth login={this.login} />
+        )
     }
   }
   

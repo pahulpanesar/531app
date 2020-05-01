@@ -54,7 +54,7 @@ function Heading(props) {
   if (props.t == "check") {
     return (
       <View style={{top: -6}}>
-          <Ionicons name="ios-checkmark" size="32"/>
+          <Ionicons name="ios-checkmark" size={32}/>
       </View>
     )
   }
