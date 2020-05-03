@@ -7,55 +7,40 @@ import {
   View,
   AsyncStorage,
   TouchableOpacity,
-  Image
+  Image,
+  Dimensions
 } from 'react-native';
 
 import jwtDecoder from 'jwt-decode';
 import UserContext from '../contexts/UserContext';
 import Constants from '../Constants';
+import stack from '@react-navigation/stack';
 
-class SignInScreen extends React.Component {
-  render() {
+export default function SignInScreen () {
+
+  const userContext = useContext(UserContext);
+  
+  const auth0ClientId = 'uEHmIDtqIzkkLFiwoo1XOo7DDnzZdD1u';
+  const auth0Domain = 'https://531.auth0.com';
+
     return (
-      <View style={this.styles.container}>
+      <View style={styles.container}>
         <View>
           <TouchableOpacity
             /*style={styles.loginButton}*/
-            onPress={() => this.loginWithAuth0()}
+            onPress={() => loginWithAuth0()}
           >
             <Text style={{ backgroundColor: "white", fontSize: 36, padding: 20 }}> Login </Text>
           </TouchableOpacity>
         </View>
       </View>
     );
-  }
 
-
-  styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#D6D5C9',
-      alignItems: 'center',
-      justifyContent: "space-around"
-
-    },
-  });
-
-
-  auth0ClientId = 'uEHmIDtqIzkkLFiwoo1XOo7DDnzZdD1u';
-  auth0Domain = 'https://531.auth0.com';
-
-  toQueryString(params) {
-    return '?' + Object.entries(params)
-      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
-      .join('&');
-  };
-
-  async loginWithAuth0() {
+  async function loginWithAuth0() {
     const redirectUrl = AuthSession.getRedirectUrl();
     const result = await AuthSession.startAsync({
-      authUrl: `${this.auth0Domain}/authorize` + this.toQueryString({
-        client_id: this.auth0ClientId,
+      authUrl: `${auth0Domain}/authorize` + toQueryString({
+        client_id: auth0ClientId,
         response_type: 'id_token',
         scope: 'openid profile',
         audience: 'https://531.auth0.com/api/v2/',
@@ -65,13 +50,19 @@ class SignInScreen extends React.Component {
     });
     console.log("Result: ", result);
     if (result.type === 'success') {
-      this.handleParams(result.params);
+      handleParams(result.params);
     } else {
       console.log("loginWithAuth0 problem");
     }
   }
 
-  async handleParams (responseObj) {
+  function toQueryString(params) {
+    return '?' + Object.entries(params)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
+      .join('&');
+  };
+
+  async function handleParams (responseObj) {
     console.log("HIT");
     const encodedToken = responseObj.id_token;
     const decodedToken = jwtDecoder(encodedToken);
@@ -91,9 +82,16 @@ class SignInScreen extends React.Component {
     );
     const get = await AsyncStorage.getItem(Constants.UserStorageKey);
     console.log("GETTING:< ", get);
-    this.context(user);
+    userContext(user);
   }
 }
 
-SignInScreen.contextType = UserContext;
-export default SignInScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#D6D5C9',
+    alignItems: 'center',
+    justifyContent: "space-around",
+  },
+});
+

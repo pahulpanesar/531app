@@ -1,13 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { Tab, AuthStack } from './index';
 import { CalendarStackScreen } from "./CalendarStackScreen";
 import { SettingsStackScreen } from "./SettingsStackScreen";
 import { WorkoutStackScreen } from "./WorkoutStackScreen";
-import { AuthStackScreen } from "./AuthStackScreen";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 export default function MainNavigation() {
+    const Tab = createBottomTabNavigator();
+
     return (
         <Tab.Navigator initialRouteName="New Workout" screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -32,7 +32,7 @@ export default function MainNavigation() {
             style: {
                 backgroundColor: '#B9BAA3',
             }
-        }}>
+        } }>
             <Tab.Screen name="Calendar" component={CalendarStackScreen} />
             <Tab.Screen name="New Workout" component={WorkoutStackScreen} options={{ title: 'Start New Workout' }} />
             <Tab.Screen name="Settings" component={SettingsStackScreen} />

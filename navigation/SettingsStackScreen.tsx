@@ -1,9 +1,12 @@
 import React from 'react';
 import SettingsScreen from '../screens/SettingsScreen';
-import { SettingsStack } from './index';
+import { createStackNavigator } from '@react-navigation/stack';
 import { DetailsScreen } from "./DetailsScreen";
+
 export function SettingsStackScreen() {
-    return (<SettingsStack.Navigator screenOptions={{
+    const SettingsStack = createStackNavigator();
+
+    return (<SettingsStack.Navigator headerMode="none" screenOptions={{
         headerTintColor: '#222',
         headerStyle: { backgroundColor: '#B9BAA3' },
     }}>

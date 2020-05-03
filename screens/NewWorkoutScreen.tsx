@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#D6D5C9',
     alignItems: 'center',
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    paddingTop: 30
   },
   welcomeText: {
     "fontStyle": "normal",

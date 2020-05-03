@@ -1,3 +1,3 @@
 export default {
-    UserStorageKey: "@531-graphql:auth0"
+    UserStorageKey: "@531-graphql:auth0",
 }

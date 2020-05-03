@@ -1,42 +1,50 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SplashScreen from './../screens/SplashScreen';
-import { AuthStackScreen } from './AuthStackScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { AsyncStorage } from 'react-native';
 import Constants from './../Constants';
 import MainNavigation from './MainNavigation';
 import UserContext from './../contexts/UserContext';
-
-export const Tab = createBottomTabNavigator();
-export const MainStack = createStackNavigator();
-export const CalendarStack = createStackNavigator();
-export const SettingsStack = createStackNavigator();
-export const AuthStack = createStackNavigator();
+import SignIn from '../screens/SignInScreen';
+import { StyleSheet } from 'react-native';
+const AppStack = createStackNavigator();
 
 export default () => {
-    const [isLoading, setIsLoading] = React.useState(true);
-    const [user, setUser] = React.useState(null);
+    const [isLoading, setIsLoading] =  useState(true);
+    const [user, setUser] = useState(null);
     React.useEffect(() => {
         async function getUser() {
-            return await AsyncStorage.getItem(Constants.UserStorageKey);
+            return AsyncStorage.getItem(Constants.UserStorageKey);
         }
-        let user = getUser();
-        console.log("USER: ", user);
-        setUser(user);
-        setIsLoading(false);
-        }, []);
+        getUser().then((user) => {
+            console.log("USER:2 ", user);
+            
+            if (user) {
+                const obj = JSON.parse(user);
+                if (obj.exp <= Math.floor(new Date().getTime() / 1000)) {
+                    AsyncStorage.removeItem(Constants.UserStorageKey);
+                    setUser(null);
+                }
+            } else {
+                setUser(user);
+            }
+
+            setIsLoading(false);
+        });
+    }, []);
 
     return (
         <NavigationContainer>
-            {isLoading ? 
-                <SplashScreen /> : 
+            {isLoading ?
+                <SplashScreen /> :
                 <UserContext.Provider value={setUser}>
-                    {user == null ? 
-                        <AuthStackScreen /> :
-                        <MainNavigation />
-                    }
+                    <AppStack.Navigator headerMode="none">
+                        {user == null ?
+                            <AppStack.Screen name="SignIn" component={SignIn} /> :
+                            <AppStack.Screen name="MainApp" component={MainNavigation} />
+                        }
+                    </AppStack.Navigator>
                 </ UserContext.Provider>
             }
         </NavigationContainer>
