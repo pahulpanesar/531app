@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { View, Text, Button, AsyncStorage } from 'react-native';
+import UserContext from '../contexts/UserContext';
 
 export default function SettingsScreen(props) {
+  const setUser = useContext(UserContext);
 
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -20,9 +22,10 @@ export default function SettingsScreen(props) {
     );
 
   async function logout () {
-    console.log("NIGGA");
     await AsyncStorage.removeItem(
         '@531-graphql:auth0'
-    )
+    ).then(() => {
+      setUser(null);
+    })
   }
 }

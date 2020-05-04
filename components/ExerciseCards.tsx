@@ -1,19 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
-import WorkouCard from './WorkoutCard';
+import { StyleSheet, Text, View } from 'react-native';
+import ExerciseCard from './ExerciseCard';
 
 
-export default function WorkoutCards(props) {
+export default function ExerciseCards(props) {
     return (
       <View>
-        <WorkouCard name={getWorkoutFromName(props.workoutName)} isMainExercise={true} />
-        <WorkouCard name="Dips" />
-        <WorkouCard name="Incline Press" />
+        <ExerciseCard name={getExerciseFromWorkoutName(props.workoutName)} isMainExercise={true} />
+        <ExerciseCard name="Dips" />
+        <ExerciseCard name="Incline Press" />
       </View>
     );
   }
 
-  function getWorkoutFromName(name) {
+  function getExerciseFromWorkoutName(name) {
     if (name == "bench") {
       return "Bench Press"
     }

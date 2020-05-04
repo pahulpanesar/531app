@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet,View } from 'react-native';
 
-import WorkoutCards from "../components/WorkoutCards";
+import ExerciseCards from "../components/ExerciseCards";
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -9,7 +9,7 @@ export default function StartedWorkoutScreen({ navigation }) {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <WorkoutCards workoutName="bench" />
+          <ExerciseCards workoutName="bench" />
         </ScrollView>
       </View>
     );
@@ -21,6 +21,7 @@ export default function StartedWorkoutScreen({ navigation }) {
       flex: 1,
       backgroundColor: '#D6D5C9',
       alignItems: 'center',
-      
+      justifyContent: "space-around",
+      paddingTop: 50
     },
   });

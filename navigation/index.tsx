@@ -11,25 +11,23 @@ import { StyleSheet } from 'react-native';
 const AppStack = createStackNavigator();
 
 export default () => {
-    const [isLoading, setIsLoading] =  useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState(null);
     React.useEffect(() => {
         async function getUser() {
             return AsyncStorage.getItem(Constants.UserStorageKey);
         }
         getUser().then((user) => {
-            console.log("USER:2 ", user);
-            
             if (user) {
                 const obj = JSON.parse(user);
                 if (obj.exp <= Math.floor(new Date().getTime() / 1000)) {
                     AsyncStorage.removeItem(Constants.UserStorageKey);
                     setUser(null);
+                    console.log("User Token Expired")
+                } else {
+                    setUser(user);
                 }
-            } else {
-                setUser(user);
             }
-
             setIsLoading(false);
         });
     }, []);

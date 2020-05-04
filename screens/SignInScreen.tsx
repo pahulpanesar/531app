@@ -1,25 +1,19 @@
 import { AuthSession } from 'expo';
 import React, { useContext } from 'react';
 import {
-  Alert,
   StyleSheet,
   Text,
   View,
   AsyncStorage,
   TouchableOpacity,
-  Image,
-  Dimensions
 } from 'react-native';
 
 import jwtDecoder from 'jwt-decode';
-import UserContext from '../contexts/UserContext';
 import Constants from '../Constants';
-import stack from '@react-navigation/stack';
+import UserContext from '../contexts/UserContext';
 
 export default function SignInScreen () {
-
-  const userContext = useContext(UserContext);
-  
+  const setUser = useContext(UserContext);
   const auth0ClientId = 'uEHmIDtqIzkkLFiwoo1XOo7DDnzZdD1u';
   const auth0Domain = 'https://531.auth0.com';
 
@@ -30,7 +24,7 @@ export default function SignInScreen () {
             /*style={styles.loginButton}*/
             onPress={() => loginWithAuth0()}
           >
-            <Text style={{ backgroundColor: "white", fontSize: 36, padding: 20 }}> Login </Text>
+            <Text style={{ backgroundColor: "red", fontSize: 36, padding: 20 }}> Login </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -48,7 +42,6 @@ export default function SignInScreen () {
         nonce: "randomstring"
       }),
     });
-    console.log("Result: ", result);
     if (result.type === 'success') {
       handleParams(result.params);
     } else {
@@ -63,26 +56,21 @@ export default function SignInScreen () {
   };
 
   async function handleParams (responseObj) {
-    console.log("HIT");
     const encodedToken = responseObj.id_token;
     const decodedToken = jwtDecoder(encodedToken);
-    console.log(decodedToken);
     let user = {
       token: encodedToken,
       name: decodedToken.given_name,
       id: decodedToken.sub,
       exp: decodedToken.exp
     }
-    console.log("sign in users:", user);
     await AsyncStorage.setItem(
       Constants.UserStorageKey,
       JSON.stringify({
         user
       })
     );
-    const get = await AsyncStorage.getItem(Constants.UserStorageKey);
-    console.log("GETTING:< ", get);
-    userContext(user);
+    setUser(user);
   }
 }
 
