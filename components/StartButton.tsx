@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
         zIndex: 10,
         position: "absolute",
         top: height - 200
-        //"margin": 75,
     },
     text: {
         "fontStyle": "normal",

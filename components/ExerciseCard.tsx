@@ -95,7 +95,9 @@ const styles = StyleSheet.create({
   HeadingsContainer: {
     "flexDirection": 'row',
     "justifyContent": 'space-between',
-    width: 325,
+    "alignSelf": "flex-start",
+    marginLeft: 25,
+    width: 310,
     height: 25
   },
   HeadingsText: {
