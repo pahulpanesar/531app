@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, View, StyleSheet, Text, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Clock from './Clock';
-
-import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 
 const {height, width} = Dimensions.get("screen");
 
