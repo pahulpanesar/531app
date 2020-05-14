@@ -11,11 +11,11 @@ export default function ExerciseCard(props) {
       {props.isMainExercise ? getMainExerciseCard(props.name) : getSupplementaryExerciseCard(props.name)}
       <View style={styles.Divider}></View>
       {getCardHeadings()}
-      <Set setName="W" previousSet="45 lbs x 8" weight="45" reps="8"/>
-      <Set setName="W" previousSet="95 lbs x 8" weight="95" reps="8"/>
-      <Set setName="1" previousSet="125 lbs x 5" weight="130" reps="5"/>
-      <Set setName="2" previousSet="125 lbs x 5" weight="130" reps="5"/>
-      <Set setName="3" previousSet="125 lbs x 5" weight="130" reps="5"/>
+      <Set setName="W" previousSet="45 lbs x 8" weight="45" reps="8" restDuration={10}/>
+      <Set setName="W" previousSet="95 lbs x 8" weight="95" reps="8" restDuration={10}/>
+      <Set setName="1" previousSet="125 lbs x 5" weight="130" reps="5" restDuration={30}/>
+      <Set setName="2" previousSet="125 lbs x 5" weight="130" reps="5" restDuration={40}/>
+      <Set setName="3" previousSet="125 lbs x 5" weight="130" reps="5" restDuration={30}/>
     </View>
   );
 }

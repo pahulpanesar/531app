@@ -9,7 +9,7 @@ export default function Set(props) {
     
     return (
         <View style={styles.Container}>
-            <RestTimer isVisible={restTimerActive} closeModal={() => setRestTimerActive(false)}/>
+            {checked && <RestTimer duration={props.restDuration} isVisible={restTimerActive} closeModal={() => setRestTimerActive(false)}/>}
             <SetPiece pieceName="setName" setName={props.setName} />
             <SetPiece pieceName="previousSet" previousSet={props.previousSet} />
             <SetPiece pieceName="weight" weight={props.weight} />

@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, View, StyleSheet, Text, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Clock from './Clock';
 
-const height = Dimensions.get("screen").height;
-const width = Dimensions.get("screen").width;
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
+
+const {height, width} = Dimensions.get("screen");
 
 export default function RestTimer(props) {
+    const [currentCount, setCount] = useState(props.duration);
+    const timer = () => setCount(currentCount - 1);
+
+    useEffect(
+        () => {
+            if (currentCount == 0) {
+                setTimeout(() => props.closeModal(), 1000);
+                return;
+            }
+            const id = setInterval(timer, 1000);
+            return () => clearInterval(id);
+        },
+        [currentCount]
+    );
     return (
         <Modal transparent={true} visible={props.isVisible}>
             <View style={styles.container}>
-                <View style={styles.circle} />
+                <View style={styles.timerContainer}>
+
+                    <Text style={styles.timerText}>
+                        {currentCount}
+                    </Text>
+
+                </View>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.finishButton} onPress={() => props.closeModal()}>
                         <Text style={styles.finishButtonText}>
                             Finish
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.addTimeButton}>
+                    <TouchableOpacity style={styles.addTimeButton} onPress={() => addTime()}>
                         <Text style={styles.addTimeButtonText}>
                             + 15s
                         </Text>
@@ -25,14 +47,18 @@ export default function RestTimer(props) {
             </View>
         </Modal>
     );
+
+    function addTime() {
+        setCount(currentCount + 15);
+    }
 }
 
 const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         justifyContent: "space-between",
-        top: height *.1,
-        height: height *.6,
+        top: height * .1,
+        height: height * .6,
         width: width * .9,
         backgroundColor: "#4F4F4F",
         alignSelf: "center",
@@ -40,10 +66,14 @@ const styles = StyleSheet.create({
         padding: 10
     },
     circle: {
-        height: 100,
-        width: 100,
-        borderRadius: 100,
-        color: "red"
+        height: 300,
+        width: 300,
+        borderRadius: 150,
+        borderColor: "red",
+        borderWidth: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "blue"
     },
     finishButton: {
         "backgroundColor": "#CD5E57",
@@ -74,5 +104,16 @@ const styles = StyleSheet.create({
         "justifyContent": 'space-between',
         "alignSelf": "center",
         "width": height / 3 - height / 12,
+    },
+    timerContainer: {
+        backgroundColor: "#bbb",
+        borderRadius: 5,
+        width: width *.85,
+        height: height*.5,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    timerText: {
+        fontSize: 250,
     }
 })
