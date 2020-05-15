@@ -1,13 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 
 export default function SetPiece(props) {
     return (
-        <View style={container}>
+        <View style={props.isChecked === true ? styles.checkedContainer : styles.container}>
             {renderPiece(props)}
         </View>
     );
@@ -34,29 +34,11 @@ export default function SetPiece(props) {
     }
 
     function toggleCheck(props) {
-        if (props.isChecked) {
-            container = StyleSheet.compose(checkedStyle.PieceContainerChecked, styles.PieceContainerUnchecked);
-        } else {
-            container = StyleSheet.compose(styles.PieceContainerUnchecked, checkedStyle.PieceContainerChecked);
-        }
         props.toggleChecked();
     }
 }
 
 const styles = StyleSheet.create({
-    PieceContainerUnchecked: {
-        "backgroundColor": "#C4C4C4",
-        "borderRadius": 3,
-        "padding": 5,
-        "justifyContent": "center",
-        height: 26
-    },
-    PieceContainerChecked: {
-        "backgroundColor": "blue",
-        width: 25,
-        top: -5,
-        left: 8
-    },
     AlignSetName: {
         textAlignVertical: "center",
         textAlign: "center",
@@ -83,15 +65,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         alignContent: "center"
-        // top: -5,
-        // left: 10
+    },
+    
+container: {
+    backgroundColor: "#C4C4C4",
+    borderRadius: 3,
+    padding: 5,
+    justifyContent: "center",
+    height: 26
+},
+checkedContainer: {
+        backgroundColor: "#8BEC8E",
+        borderRadius: 3,
+        padding: 5,
+        justifyContent: "center",
+        height: 26
     }
 })
-
-const checkedStyle = StyleSheet.create({
-    PieceContainerChecked: {
-        backgroundColor: "#8BEC8E"
-    }
-})
-
-let container = StyleSheet.compose(checkedStyle.PieceContainerChecked, styles.PieceContainerUnchecked);
