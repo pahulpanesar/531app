@@ -14,7 +14,7 @@ export default function ExerciseCards(props) {
   }
 
   function getExerciseFromWorkoutName(name) {
-    if (name == "bench") {
+    if (name == "bench press") {
       return "Bench Press"
     }
   }
